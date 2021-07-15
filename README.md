@@ -1,4 +1,4 @@
-# Well-log-predictions
-Fuzzy Logic, Neural Networks and Genetic Algorithms for well log predictions
+# Shear wave velocity log prediction
+Fuzzy Logic, Neural Networks and Genetic Algorithms for shear wave velocity log prediction
 
 **Repository under construction.**
