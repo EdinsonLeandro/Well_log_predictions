@@ -9,6 +9,9 @@ Perform a normalization implies changing the order of magnitude of the data. It 
 
 There are different equations to carry out a normalization; however, it was decided use the following equation because it has been used in geosciences:
 
+<p align="center">
+  <img src="Data/images/normalization.png" width="180" title="Normalization">
+</p>
 
 
 **Repository under construction.**
