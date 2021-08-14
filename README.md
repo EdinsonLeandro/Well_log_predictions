@@ -1,5 +1,5 @@
 # Shear wave velocity log prediction
-Fuzzy Logic, Neural Networks and Genetic Algorithms for shear wave velocity log prediction. [Here](https://nbviewer.jupyter.org/github/EdinsonLeandro/Well_log_predictions/blob/master/Shear-wave-velocity-prediction.ipynb) is the link for the notebook.
+Fuzzy Logic, Neural Networks and Genetic Algorithms for shear wave velocity log prediction. [Here](https://nbviewer.jupyter.org/github/EdinsonLeandro/Well_log_predictions/blob/master/Shear-wave-velocity-prediction.ipynb) is the link for the notebook (It has not finished yet).
 
 ## Data normalization.
 Perform a normalization implies changing the order of magnitude of the data. It tries to obtain more information making comparable magnitudes, always preserving data integrity. You should use data normalization when you have the following issues:
