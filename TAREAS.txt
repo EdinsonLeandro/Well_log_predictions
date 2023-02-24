@@ -1,0 +1,37 @@
+
+ESTE SCRIPT ES PARA CALCULAR VARIOS HISTOGRAMAS
+
+[rows, columns] = size(TrainingData.curve_info);
+
+axis = zeros(6,4);
+f = cell(6,1);
+for i= 2:rows
+
+    ax = subplot(3, 3, i-1);
+    histogram(TrainingData.curves(:, i));
+    ax.FontSize = 8;
+    ax.TitleFontSizeMultiplier = 1.2;
+
+    f{i-1} = ax;
+    axis(i-1, :) = get(ax, 'position');
+
+    title(TrainingData.curve_info(i,3));
+end
+
+var = get(f{1}, 'position');
+set(f{1}, 'position', var + [0, -0.1, 0.1, 0.1]);
+
+var = get(f{2}, 'position');
+set(f{2}, 'position', var + [0.1, -0.1, 0.1, 0.1]);
+
+var = get(f{3}, 'position');
+set(f{3}, 'position', var + [0.2, -0.1, 0.1, 0.1]);
+
+var = get(f{4}, 'position');
+set(f{4}, 'position', var + [0, -0.3, 0.1, 0.1]);
+
+var = get(f{5}, 'position');
+set(f{5}, 'position', var + [0.1, -0.3, 0.1, 0.1]);
+
+var = get(f{6}, 'position');
+set(f{6}, 'position', var + [0.2, -0.3, 0.1, 0.1]);

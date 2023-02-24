@@ -1,0 +1,96 @@
+clc
+clear all
+% Constantes que seran utilizadas a lo largo del algoritmo. Por lo que se
+% declararan una sola vez
+global obj pred num
+
+% Selección del registro para la predicción. Este debe encontrarse entre
+% los seleccionados anteriormente.
+% obj: número que indica la columna en que se encuentra el
+% registro que se ha seleccionado para la predicción.
+obj=16;
+
+% pred: Vector que contiene la posición del(los) registro(s) para el
+% entrenamiento del algoritmo y posterior predicción.
+pred=[14 17];
+
+% num: Número de variables independientes para realizar el entrenamiento
+% del algoritmo. Se corresponde con el número de registros de entrada
+% para la predicción
+num=size(pred,2);
+
+% Selección de la técnica de predicción a utilizar
+PREDICCION=3;
+
+%% Carga de los Pozos
+%---------------------------------%
+% Carga del Pozo de Entrenamiento %
+%---------------------------------%
+
+% PE: Matriz que contiene los registros del Pozo de Entrenamiento
+PE=carga_registro('PDVSA_MVR-144_Fase8.5in_Sonico-GRespectral_31Mayo2015_SeccPpal.las');
+
+% Definición de los topes de la arena de interés del pozo de entrenamiento
+% (en pies).
+% tsupPE: Tope Superior
+% tinfPE: Tope Inferior
+tsupPE=10200; tinfPE=10300;
+
+% Escogencia de los registros con los que cuenta el pozo.
+% Arreglo de celdas que contiene los Nombres de los Registros
+nombresPE={'Profundidad','Th Concentration','Spectroscopy Gamma Ray',...
+    'Gamma Ray Contribution ','K Concentration','Th/U Ratio',...
+    '1 Chi-Squared','U Concentration','2 Chi-Squared','Cable Tension',...
+    'Bit Size','K Concentration','Th/K Ratio','DT Compressional',...
+    'Sonic Porosity','Delta-T Shear','Gamma Ray','Acceleration X',...
+    'Acceleration Y','Acceleration Z','Magnetic Field Inclination',...
+    'Magnetic Field Intensity','Magnetometer X','Magnetometer Y',...
+    'Magnetometer Z',' Pad 1 Azimuth','Acceleration Computed Norm',...
+    'Hole Azimuth'};
+
+% Arreglo de celdas que contiene las unidades en que fueron medidos cada
+% registros
+unidadesPE={'(ft)','(.ppm)','(gAPI)','(gAPI)','(%)','','','(ppm)','',...
+    '(lbf)','(in)','(%)','','(us/ft)','(ft3/ft3)','(us/ft)','(gAPI)',...
+    '(ft/s2)','(ft/s2)','(ft/s2)','(deg)','(mT)','(mT)','(mT)','(mT)',...
+    '(deg)','(ft/s2)','(deg)'};
+
+% Título que identifica al pozo de entrenamiento
+tituloPE='Registros: Pozo MVR-144';
+
+% Si entre estos registros seleccionados se encuentra el Sonico de Onda P
+% y/o el de Onda S puede convertirse a Velocidad.
+% ATENCIÓN-MEJORAR!!!: HACER UNA FUNCIÓN PARA TRANSFORMAR DE UNIDADES DE
+% LENTITUD A UNIDADES DE VELOCIDAD, PARA NO HACER LA DETECCIÓN DE ESTA
+% FORMA AUTOMÁTICA, YA QUE LOS NEMÓNICOS PUEDEN VARIAR: DT, DTP, DTC,
+% DT COMPRERSIONAL, ETC. NO SON UNO SÓLO COMO PARA HACER LA DISCRIMINACIÓN.
+% PARA ESTO PODRÍA UTILIZARSE LA VARIABLE "obj".
+for i=2:size(PE,2)
+    if strcmp(nombresPE{i},'Delta-T Shear')
+    % Posición del Registro DTs en el archivo
+        vs=i;
+        % Conversión a Registro de Velocidad. El factor 10^6 implica una
+        % modificacion en las unidades de ft/us a ft/s
+        PE(:,vs)=10^6*(1./PE(:,vs));
+        nombresPE{vs}=('Velocidad Onda S');
+        unidadesPE{vs}=('(ft/s)');
+    elseif strcmp(nombresPE{i},'DT Compressional')
+        % Posición del Registro DTp en el archivo
+        vp=i;
+        % Conversión a Registro de Velocidad. El factor 10^6 implica una
+        % modificación en las unidades de ft/us a ft/s
+        PE(:,vp)=10^6*(1./PE(:,vp));
+        nombresPE{vp}=('Velocidad Onda P');
+        unidadesPE{vp}=('(ft/s)');
+    else
+    continue
+    end
+end
+
+% Gráficas de los registros del pozo. Solo se desean graficar las
+% profundidades en las que se haya registrado.
+graficas_registro(PE,nombresPE,unidadesPE,tituloPE,tsupPE,tinfPE);
+
+
+
+

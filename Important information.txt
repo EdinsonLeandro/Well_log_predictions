@@ -1,0 +1,17 @@
+% Directory for scripts
+C:\Users\Edinson\Documents\PREGRADO\Tesis\tesis_edinson_versión\Tesis\Códigos
+
+% Add folders and subfolders to path
+https://www.mathworks.com/help/matlab/ref/addpath.html
+
+% LAS format
+https://en.wikipedia.org/wiki/Log_ASCII_Standard
+https://www.cwls.org/wp-content/uploads/2014/09/LAS_3_File_Structure.pdf
+https://www.cwls.org/wp-content/uploads/2017/02/Las2_Update_Feb2017.pdf
+
+% SeisLab package
+https://www.mathworks.com/matlabcentral/fileexchange/53109-seislab-3-02
+
+% Well logs renamed
+Well-1    ->     GF-87
+Well-2    ->     GF-109
